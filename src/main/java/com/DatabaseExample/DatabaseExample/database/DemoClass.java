@@ -10,19 +10,43 @@ public class DemoClass
         String url="jdbc:mysql://localhost:3306/student";
         String uname="root";
         String pass="mysql";
-        String query="select userName from users where userID=3";
+        int userID=9;
+        String userName="Het";
+        String query="insert into users values(?,?)";
 
         Class.forName("com.mysql.jdbc.Driver");
 
         Connection con=DriverManager.getConnection(url,uname,pass);
+        PreparedStatement st=con.prepareStatement(query);
+    st.setInt(1,userID);
+    st.setString(2,userName);
+        int count=st.executeUpdate();
 
-        Statement st=con.createStatement();
-        ResultSet rs=st.executeQuery(query);
+        System.out.println(count+" rows affected");
+//        String userdata="";
+//        String name=rs.getString("userName");
+//
+//        System.out.println(name);
 
-        rs.next();
-        String name=rs.getString("userName");
+//        while (rs.next()) {
+//            // Assuming you have columns named 'userName' and 'userId' in the 'users' table
+//            userdata=rs.getInt(1)+":"+rs.getString(2);
+//            System.out.println(userdata);
+//        }
 
-        System.out.println(name);
+//        rs.next();
+//        userdata=rs.getInt(1)+":"+rs.getString(2);
+//        System.out.println(userdata);
+
+
+//        rs.next();
+//        userdata=rs.getInt(1)+":"+rs.getString(2);
+//        System.out.println(userdata);
+
+
+//        rs.next();
+//        userdata=rs.getInt(1)+":"+rs.getString(2);
+//        System.out.println(userdata);
 
         st.close();
         con.close();
